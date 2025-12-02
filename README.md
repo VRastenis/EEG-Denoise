@@ -10,26 +10,20 @@ Both Data and certain methods used were taken from the [EEGdenoiseNet Project](h
 
 Single channel EEG and EOG signals were isolated and cleaned via standard methods (ICA/ICALabel) and visually checked by experts as described in the above project.
 
-Then, I linearly mixed the signals to an SNR(Signal-to-Noise Ratio) between -7dB and 2dB, to emulate empirical data:
-$$
-    x = y + \lambda n
-$$
+Then, I linearly mixed the signals to an SNR(Signal-to-Noise Ratio) between -7dB and 2dB, to emulate empirical data:\
+$$x = y + \lambda\cdot n$$\
 x - contaminated EEG+EOG signal, y - clean EEG signal, n - EOG signal. 
 
-$\lambda$ was calculated to fit a realistic SNR via:
-$$
-    SNR = 10\log\frac{RMS(x)}{RMS(\lambda\cdot n)}
-$$
+$\lambda$ was calculated to fit a realistic SNR via:\
+$$SNR = 10\log\frac{RMS(x)}{RMS(\lambda\cdot n)}$$\
 Where RMS is the regular Root Mean Squared measure.
 
 Thus my Data and Target are mixed EEG+EOG and clean EEG signals respectively.
 
 ## Loss function
 
-After trying different loss functions for signal evaluation, I stuck to one given by the Project. Relative Root Mean Squared Error in the temporal domain (RRMSE) is simply:
-$$
-    RRMSE_{temporal} = \frac{RMS(f(x)-y)}{RMS(y)}
-$$
+After trying different loss functions for signal evaluation, I stuck to one given by the Project. Relative Root Mean Squared Error in the temporal domain (RRMSE) is simply:\
+$$RRMSE_{temporal} = \frac{RMS(f(x)-y)}{RMS(y)}$$\
 This gave both more believable EEG signals(for my untrained eye), and good training times.
 
 ## ML models
